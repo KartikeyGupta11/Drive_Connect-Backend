@@ -10,7 +10,7 @@ export const getPendingInstructorRequests = async (req, res) => {
 
     const updatedRequests = requests.map((req) => {
       // const baseUrl = "http://localhost:5000/uploads/";
-      const baseUrl = `${req.protocol}://${req.get("host")}/uploads/`;
+      const baseUrl = `https://drive-connect-backend.onrender.com/uploads/`;
       return {
         ...req.toObject(),
         profilePicUrl: req.profilePic ? baseUrl + req.profilePic : null,
