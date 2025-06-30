@@ -23,7 +23,7 @@ app.use(cors());
 //     origin: 'https://luminous-unicorn-e8d5d1.netlify.app/', // your frontend domain
 //     credentials: true
 //   }));
-// app.use(express.json());
+app.use(express.json());
 
 
 // ✅ Static file serving for uploaded images/docs
