@@ -9,7 +9,8 @@ export const getPendingInstructorRequests = async (req, res) => {
     }).populate('userId', 'name email');
 
     const updatedRequests = requests.map((req) => {
-      const baseUrl = "http://localhost:5000/uploads/";
+      // const baseUrl = "http://localhost:5000/uploads/";
+      const baseUrl = `${req.protocol}://${req.get("host")}/uploads/`;
       return {
         ...req.toObject(),
         profilePicUrl: req.profilePic ? baseUrl + req.profilePic : null,
