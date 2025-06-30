@@ -18,28 +18,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-// app.use(cors());
+app.use(cors());
 // app.use(cors({
 //     origin: 'https://luminous-unicorn-e8d5d1.netlify.app/', // your frontend domain
 //     credentials: true
 //   }));
 // app.use(express.json());
 
-const allowedOrigins = [
-    'http://localhost:5173', // for local development
-    'https://luminous-unicorn-e8d5d1.netlify.app', // your actual Netlify domain
-  ];
-  
-app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-}));
 
 // ✅ Static file serving for uploaded images/docs
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
