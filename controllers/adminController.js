@@ -9,8 +9,8 @@ export const getPendingInstructorRequests = async (req, res) => {
     }).populate('userId', 'name email');
 
     const updatedRequests = requests.map((req) => {
-      // const baseUrl = "http://localhost:5000/uploads/";
-      const baseUrl = "https://drive-connect-backend.onrender.com/uploads/";
+      const baseUrl = "http://localhost:5000/uploads/";
+      // const baseUrl = "https://drive-connect-backend.onrender.com/uploads/";
       return {
         ...req.toObject(),
         profilePicUrl: req.profilePic ? baseUrl + req.profilePic : null,
@@ -45,6 +45,9 @@ export const approveInstructorRequest = async (req, res) => {
 
     const newProfile = new InstructorProfile({
       userId: user._id,
+      firstName: request.firstName,
+      lastName: request.lastName,
+      email: request.email,
       contactNumber: request.contactNumber,
       profilePic: request.profilePic,
       citizenIdImage: request.citizenIdImage,

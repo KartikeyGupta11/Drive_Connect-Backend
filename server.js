@@ -7,9 +7,9 @@ import { fileURLToPath } from 'url';
 
 import authRoutes from "./routes/authRoutes.js";
 import instructorRoutes from './routes/instructorRoutes.js';
-import bookingRoutes from './routes/bookingRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import otpRoutes from "./routes/otpVerificationRoutes.js";
+import bookingRoutes from './routes/bookingRoutes.js';
 
 const app = express();
 connectDB();
@@ -28,6 +28,8 @@ app.use(express.json());
 
 // ✅ Static file serving for uploaded images/docs
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// console.log("Serving static files from:", path.join(__dirname, 'uploads'));
+
 
 // Routes
 app.use('/api/auth', authRoutes);

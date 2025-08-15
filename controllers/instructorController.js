@@ -4,7 +4,7 @@ import InstructorRequest from '../models/InstructorTempRequests.js';
 
 export const getAllInstructors = async (req, res) => {
     try {
-        const instructors = await User.find({role: 'instructor', isApproved: true});
+        const instructors = await InstructorProfile.find({isApproved: true});
         res.json(instructors);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -77,6 +77,9 @@ export const createInstructorRequest = async (req, res) => {
 
     const newRequest = new InstructorRequest({
       userId,
+      firstName,
+      lastName,
+      email,
       contactNumber,
       profilePic,
       citizenIdImage: citizenIDFile,

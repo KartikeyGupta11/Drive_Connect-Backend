@@ -37,6 +37,10 @@ export const register = async (req, res) => {
       fee,
     });
 
+    if(role != "instructor") {
+      user.isApproved = true;
+    }
+    
     await user.save();
 
     res.status(201).json({

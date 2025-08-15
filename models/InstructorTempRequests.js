@@ -7,6 +7,21 @@ const instructorRequestSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  firstName:{
+    type: String,
+    required: true,
+    trim: true
+  },
+  lastName:{
+    type: String,
+    required: true,
+    trim: true
+  },
+  email:{
+    type: String,
+    required: true,
+    unique: true,
+  },
   contactNumber: {
     type: Number,
     required: true,
