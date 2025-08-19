@@ -72,8 +72,8 @@ export const getPendingInstructorRequests = async (req, res) => {
     }).populate('userId', 'name email');
 
     const updatedRequests = requests.map((req) => {
-      const baseUrl = "http://localhost:5000/uploads/";
-      // const baseUrl = "https://drive-connect-backend.onrender.com/uploads/";
+      // const baseUrl = "http://localhost:5000/uploads/";
+      const baseUrl = "https://drive-connect-backend.onrender.com/uploads/";
       return {
         ...req.toObject(),
         profilePicUrl: req.profilePic ? baseUrl + req.profilePic : null,
