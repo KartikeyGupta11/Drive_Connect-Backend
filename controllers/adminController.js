@@ -1,6 +1,69 @@
 import { User } from "../models/User.js";
 import InstructorRequest from "../models/InstructorTempRequests.js";
 import InstructorProfile from '../models/InstructorProfile.js';
+import AdminProfile from "../models/AdminOnly.js";
+import {protect} from "../middlewares/authMiddleware.js";
+
+export const getAdminProfile = async (req, res) => {
+  try {
+    const profile = await AdminProfile.findById(req.params.id);
+    res.json(profile);
+  } catch (err) {
+    res.status(500).json({ message: "Error while Fetching Admin Only Details..." });
+  }
+};
+
+export const createOrUpdateAdminProfile = async (req, res) => {
+  try {
+    const { image, aadhaarCard, firstName, lastName, email, contact } = req.body;
+
+    let profile = await AdminProfile.findById(req.params.id);
+
+    if (profile) {
+      // Update existing profile
+      profile.image = image || profile.image;
+      profile.aadhaarCard = aadhaarCard || profile.aadhaarCard;
+      profile.firstName = firstName || profile.firstName;
+      profile.lastName = lastName || profile.lastName;
+      profile.email = email || profile.email;
+      profile.contact = contact || profile.contact;
+
+      await profile.save();
+      return res.json(profile);
+    }
+
+    // If profile doesn’t exist → create new one
+    profile = new AdminProfile({
+      image,
+      aadhaarCard,
+      firstName,
+      lastName,
+      email,
+      contact,
+    });
+
+    await profile.save();
+    res.json(profile);
+  } catch (err) {
+    res.status(500).json({ message: "Error While Saving Admin Only Profile..." });
+  }
+};
+
+export const checkProfileCompleteness = async (req, res) => {
+  try {
+    const profile = await AdminProfile.findById(req.params.id);
+    if (!profile) {
+      return res.json({ complete: false });
+    }
+
+    const requiredFields = ["image", "aadhaarCard", "firstName", "lastName", "email", "contact"];
+    const isIncomplete = requiredFields.some((field) => !profile[field]);
+
+    res.json({ complete: !isIncomplete });
+  } catch (err) {
+    res.status(500).json({ message: "Errro While Verfying Admin Only Profile Completeness..." });
+  }
+};
 
 export const getPendingInstructorRequests = async (req, res) => {
   try {

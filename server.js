@@ -10,6 +10,7 @@ import instructorRoutes from './routes/instructorRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import otpRoutes from "./routes/otpVerificationRoutes.js";
 import bookingRoutes from './routes/bookingRoutes.js';
+import learnerRoutes from './routes/learnerRoutes.js';
 
 const app = express();
 connectDB();
@@ -37,6 +38,7 @@ app.use('/api/instructors', instructorRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/otp', otpRoutes);
+app.use('/api/learners',learnerRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
